@@ -3,7 +3,7 @@ import numpy as np
 from math import pi, sqrt, ceil
 
 
-#  Постоянные и предварительные вычисления
+#  Константы и предварительные вычисления
 L = 214.3 / 1e2  # Длина нити, м
 R = 114.6 / 1e3  # Расстояние от центра нижней платформы до крепления нити
 r = 30.2 / 1e3   # Расстояние от центра верхней платформы до крепления нити
@@ -32,6 +32,7 @@ sigma_T = np.std(t_pr)  # Погрешность определения врем
 T_pr = np.mean(t_pr) / n_1  # Предварительное вычисление периода
 n = ceil(sigma_T / eps / T_pr)  #  Необхоодимое количество колебаний
 print('Необходимо ' + str(n) + ' колебаний \n')
+print()
 
 
 #  Определение моментов инерции
@@ -52,7 +53,7 @@ eps_I_d_p = sqrt((sigma_k / k) ** 2 + (2 *sigma_m / (m_plat + m_disk)) ** 2 + 4 
 sigma_I_d_p = eps_I_d_p * I_d_p
 I_disk = I_d_p - I_plat
 sigma_I_disk = sigma_I_d_p + sigma_I_plat
-print('Момент инерции платформы ' + str(round(I_disk, 6)) + ' +- ' + str(round(sigma_I_disk, 6)))
+print('Момент инерции диска ' + str(round(I_disk, 6)) + ' +- ' + str(round(sigma_I_disk, 6)))
 
 #  Стержень
 t_p_b = 33.171
@@ -62,7 +63,7 @@ eps_I_d_b = sqrt((sigma_k / k) ** 2 + (2 *sigma_m / (m_plat + m_bar)) ** 2 + 4 *
 sigma_I_d_b = eps_I_d_b * I_d_b
 I_bar = I_d_b - I_plat
 sigma_I_bar = sigma_I_d_b + sigma_I_plat
-print('Момент инерции платформы ' + str(round(I_bar, 6)) + ' +- ' + str(round(sigma_I_bar, 6)))
+print('Момент инерции стержня ' + str(round(I_bar, 6)) + ' +- ' + str(round(sigma_I_bar, 6)))
 
 #  Стержень + диск
 t_p_b_d = 31.956
@@ -72,14 +73,14 @@ eps_I_d_b_d = sqrt((sigma_k / k) ** 2 + (2 *sigma_m / (m_plat + m_bar + m_disk))
 sigma_I_d_b_d = eps_I_d_b_d * I_d_b_d
 I_bar_disk = I_d_b_d - I_plat
 sigma_I_bar_disk = sigma_I_d_b_d + sigma_I_plat
-print('Момент инерции платформы ' + str(round(I_bar_disk, 6)) + ' +- ' + str(round(sigma_I_bar_disk, 6)))
-print()
+print('Момент инерции стержня с диском ' + str(round(I_bar_disk, 6)) + ' +- ' + str(round(sigma_I_bar_disk, 6)))
 
 #  Вывод
 print('I_disk + I_bar = ' + str(round(I_disk + I_bar, 6)) + ' +- ' + str(round(sigma_I_bar + sigma_I_disk, 6)))
 print('I_bar_disk = ' + str(round(I_bar_disk, 6)) + ' +- ' + str(round(sigma_I_bar_disk, 6)))
 if abs(I_disk + I_bar - I_bar_disk) <= (sigma_I_bar + sigma_I_disk + sigma_I_bar_disk):
     print('Результаты совпадают в пределах погрешности, аддитивность момента инерции подтверждена')
+print()
 
 
 #  Эксперимент с разрезанным цилиндром
@@ -112,8 +113,8 @@ print('Момент инерции цилиндпра m = ' + str(round(b, 6)) +
 
 # Построение графика
 plt.figure(figsize=(12, 9), dpi=100)
-plt.ylabel('h^2, м^2')
-plt.xlabel('I, кг * м^2')
+plt.xlabel('h^2, м^2')
+plt.ylabel('I, кг * м^2')
 plt.grid(True, linestyle="--")
 plt.title('График зависимости момента инерции разрезанного цилиндра от расстояния каждой половины до оси вращения')
 plt.scatter(h_2, I)
