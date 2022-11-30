@@ -75,8 +75,9 @@ I_bar_disk = I_d_b_d - I_plat
 sigma_I_bar_disk = sigma_I_d_b_d + sigma_I_plat
 print('Момент инерции стержня с диском ' + str(round(I_bar_disk, 6)) + ' +- ' + str(round(sigma_I_bar_disk, 6)))
 
+(  )
 #  Вывод
-print('I_disk + I_bar = ' + str(round(I_disk + I_bar, 6)) + ' +- ' + str(round(sigma_I_bar + sigma_I_disk, 6)))
+print( 'I_disk + I_bar = ' + str(round(I_disk + I_bar, 6)) + ' +- ' + str( round( sigma_I_bar + sigma_I_disk, 6 ) ) )
 print('I_bar_disk = ' + str(round(I_bar_disk, 6)) + ' +- ' + str(round(sigma_I_bar_disk, 6)))
 if abs(I_disk + I_bar - I_bar_disk) <= (sigma_I_bar + sigma_I_disk + sigma_I_bar_disk):
     print('Результаты совпадают в пределах погрешности, аддитивность момента инерции подтверждена')
@@ -102,14 +103,16 @@ print(I)
 print()
 
 # Метод наименьших квадратов
+(k, b) = np.polyfit(h_2, I, 1)
 
-k = (np.mean(h_2 * I) - (np.mean(h_2) * np.mean(I))) / (np.mean(h_2 ** 2) - np.mean(h_2) ** 2)
-b = np.mean(I) - k * np.mean(h_2)
+#k = (np.mean(h_2 * I) - (np.mean(h_2) * np.mean(I))) / (np.mean(h_2 ** 2) - np.mean(h_2) ** 2)
+#b = np.mean(I) - k * np.mean(h_2)
 sigma_k = 1 / sqrt(len(I)) * sqrt((np.mean(I_2) - np.mean(I) ** 2)/ (np.mean(h_2 ** 2) - (np.mean(h_2) ** 2)) - k)
 sigma_b = sigma_k * sqrt(np.mean(h_2 ** 2) - (np.mean(h_2) ** 2))
-print('Масса цилиндра m = ' + str(round(k, 6)) + ' +- ' + str(round(sigma_k, 6)))
-print('Момент инерции цилиндпра m = ' + str(round(b, 6)) + ' +- ' + str(round(sigma_b, 6)))
-
+#print('Масса цилиндра m = ' + str(round(k, 6)) + ' +- ' + str(round(sigma_k, 6)))
+print('Момент инерции цилиндра I = ' + str(round(b, 6)) + ' +- ' + str(round(sigma_b, 6)))
+PR = 6
+print(f'Масса цилиндра m = {k:.{PR}e} +- {sigma_k:.{PR}E}')
 
 # Построение графика
 plt.figure(figsize=(12, 9), dpi=100)
