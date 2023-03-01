@@ -26,7 +26,7 @@ sigma_u_1 = (e_u_1 * u_1)
 for i in range(len(m_1)):
     print(f'Скорость пули {i}: {u_1[i]:.3f} +- {sigma_u_1[i]:.3f} м/c')
 
-
+r = 22 / 1e2
 R = 32.5 / 1e2
 L_1 = 59.8 / 1e2
 M_1 = (730.3 + 730.5) / 1e3
@@ -42,11 +42,12 @@ e_T_1 = sigma_T / T_1
 e_T_2 = sigma_T / T_2
 e_L_1 = sigma_L / L_1
 e_R = sigma_L / R
-ki_sqrt = 4 * pi / (T_1 - T_2) * M_1 * R / (T_1 + T_2) * R * T_1
+e_r = sigma_L / r
+ki_sqrt = 2 * pi / (T_1 - T_2) * M_1 * R / (T_1 + T_2) * R * T_1
 e_ki_sqrt = (e_M_1 ** 2 + 4 * e_R ** 2 + e_T_1 ** 2 + 4 * (e_T_1 + e_T_2)**2) ** 0.5
 sigma_ki_sqrt = e_ki_sqrt * ki_sqrt
-u_2 = dx_2 *  ki_sqrt / 2 / m_2 / L_1 / R
-e_u_2 = (e_L_1 ** 2 + e_m_2 ** 2 + e_R ** 2 + e_ki_sqrt ** 2 + e_x_2 ** 2) ** 0.5
+u_2 = dx_2 * ki_sqrt / 2 / m_2 / L_1 / r
+e_u_2 = (e_L_1 ** 2 + e_m_2 ** 2 + e_r ** 2 + e_ki_sqrt ** 2 + e_x_2 ** 2) ** 0.5
 sigma_u_2 = u_2 * e_u_2
 for i in range(len(m_2)):
     print(f'Скорость пули {i + 4}: {u_2[i]:.3f} +- {sigma_u_2[i]:.3f} м/c')
